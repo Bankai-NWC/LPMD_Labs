@@ -9,11 +9,17 @@
     <string name="book_description">Опис</string>
 
     <string name="book_is_read">Прочитано</string>
-    <string name="status_read">Так</string>
-    <string name="status_not_read">Ні</string>
+    <string name="status_read">Прочитано</string>
+    <string name="status_not_read">Не прочитано</string>
 
     <string name="save">Зберегти</string>
     <string name="cancel">Скасувати</string>
+    <string name="clear_form">Очистити форму</string>
+
+    <string name="back">Назад</string>
+    <string name="book_not_found">Книгу не знайдено</string>
+    <string name="mark_unread">Позначити непрочитаною</string>
+    <string name="mark_read">Позначити прочитаною</string>
 
     <string name="empty_books">Поки що ця полиця порожня :(</string>
 </resources>

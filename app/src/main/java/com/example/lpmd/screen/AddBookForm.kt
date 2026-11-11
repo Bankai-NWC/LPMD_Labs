@@ -11,10 +11,6 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -23,15 +19,18 @@ import com.example.lpmd.R
 
 @Composable
 fun AddBookForm(
-    onAddBook: (title: String, author: String, description: String?, isRead: Boolean) -> Unit,
+    title: String,
+    author: String,
+    description: String,
+    isRead: Boolean,
+    onTitleChange: (String) -> Unit,
+    onAuthorChange: (String) -> Unit,
+    onDescriptionChange: (String) -> Unit,
+    onReadChange: (Boolean) -> Unit,
+    onSave: () -> Unit,
     onCancel: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var title by remember { mutableStateOf("") }
-    var author by remember { mutableStateOf("") }
-    var description by remember { mutableStateOf("") }
-    var isRead by remember { mutableStateOf(false) }
-
     val isFormValid = title.isNotBlank() && author.isNotBlank()
 
     Column(
@@ -42,7 +41,7 @@ fun AddBookForm(
     ) {
         OutlinedTextField(
             value = title,
-            onValueChange = { title = it },
+            onValueChange = onTitleChange,
             label = { Text(stringResource(id = R.string.book_title)) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
@@ -50,7 +49,7 @@ fun AddBookForm(
 
         OutlinedTextField(
             value = author,
-            onValueChange = { author = it },
+            onValueChange = onAuthorChange,
             label = { Text(stringResource(id = R.string.book_author)) },
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
@@ -58,7 +57,7 @@ fun AddBookForm(
 
         OutlinedTextField(
             value = description,
-            onValueChange = { description = it },
+            onValueChange = onDescriptionChange,
             label = { Text(stringResource(id = R.string.book_description)) },
             modifier = Modifier.fillMaxWidth(),
             minLines = 3,
@@ -71,7 +70,7 @@ fun AddBookForm(
             Text(stringResource(id = R.string.book_is_read))
             Checkbox(
                 checked = isRead,
-                onCheckedChange = { isRead = it }
+                onCheckedChange = onReadChange
             )
         }
 
@@ -83,14 +82,7 @@ fun AddBookForm(
             }
 
             Button(
-                onClick = {
-                    onAddBook(
-                        title.trim(),
-                        author.trim(),
-                        description.trim().takeIf { it.isNotEmpty() },
-                        isRead
-                    )
-                },
+                onClick = onSave,
                 enabled = isFormValid
             ) {
                 Text(stringResource(id = R.string.save))
