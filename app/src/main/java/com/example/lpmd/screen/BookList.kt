@@ -19,6 +19,7 @@ import com.example.lpmd.model.Book
 @Composable
 fun BookList(
     books: List<Book>,
+    onBookClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (books.isEmpty()) {
@@ -38,7 +39,10 @@ fun BookList(
                 items = books,
                 key = { book: Book -> book.id }
             ) { book: Book ->
-                BookCard(book = book)
+                BookCard(
+                    book = book,
+                    onClick = { onBookClick(book.id) }
+                )
             }
         }
     }
